@@ -1,13 +1,21 @@
 package com.project.java;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import javax.persistence.*;
 import java.util.List;
 
 @Entity
 @Table (name = "utilisateur")
-    public class Utilisateurs {
+    public class Users {
 
-    @ManyToMany (mappedBy = "Randonnees")
+
+    @ManyToMany (fetch = FetchType.EAGER)
+    @JsonManagedReference
+    @JoinTable(name = "userrando",
+            joinColumns = @JoinColumn(name = "Id_Utilisateur"),
+            inverseJoinColumns = @JoinColumn(name = "id_r"))
     private List <Randonnees> randos;
 
     public List<Randonnees> getRandos() {
@@ -20,6 +28,7 @@ import java.util.List;
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column (name = "Id_Utilisateur")
     private Integer id;
 
     @Column (name = "Pseudo_Utilisateur")

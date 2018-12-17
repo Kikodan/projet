@@ -1,5 +1,6 @@
 package com.project.java;
 
+import com.project.java.Repository.RandonneesRepository;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -33,15 +34,16 @@ public class JavaApplicationTests {
 
 		//When
 
+
 		{
-			Randonnees u = RandonneesRepository.findOne(1);
-			String r = u.getNomRando();
-			Assert.assertTrue(r.equals("Autour de Montpeyroux"));
-		}
-		{
-			Randonnees R = randonneesRepository.findOne(1L);
-			R.getUtilisateurs();
-			List<Utilisateurs> utilisateurs = R.getUtilisateurs();
+			Randonnees R = randonneesRepository.findOne(1);
+
+			List<Users> listeUtilisateurs = R.getUtilisateur();
+			for (Users utilisateurs: listeUtilisateurs ){
+				System.out.println(utilisateurs.getId());
+			}
+
+
 		}
 		//Then
 		//Assert.assertTrue(NomRando>0);

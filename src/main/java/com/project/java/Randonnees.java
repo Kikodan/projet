@@ -1,29 +1,24 @@
 package com.project.java;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
 @Table (name = "randonnees")
     public class Randonnees {
 
-    public List<Utilisateurs> getUtilisateurs() {
-        return utilisateurs;
-    }
-
-    public void setUtilisateurs(List<Utilisateurs> utilisateurs) {
-        this.utilisateurs = utilisateurs;
-    }
-
-    @ManyToMany
-    @JoinTable(name = "userrando",
-            joinColumns = @JoinColumn(name = "id_r"),
-            inverseJoinColumns = @JoinColumn(name = "Utilisateur_Id"))
-    private List<Utilisateurs> utilisateurs;
+    @ManyToMany (fetch = FetchType.EAGER ,mappedBy = "randos")
+    @JsonBackReference
+    private List<Users> utilisateur = new ArrayList<>();
 
 
         @Id
         @GeneratedValue(strategy = GenerationType.AUTO)
+        @Column (name = "id_r")
         private Integer id;
 
         @Column (name = "nom_r")
@@ -80,5 +75,13 @@ import java.util.List;
 
     public void setDistRando(String distRando) {
         DistRando = distRando;
+    }
+
+    public List<Users> getUtilisateur() {
+        return utilisateur;
+    }
+
+    public void setUtilisateur(List<Users> utilisateur) {
+        this.utilisateur = utilisateur;
     }
 }
